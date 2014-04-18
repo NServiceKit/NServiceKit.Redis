@@ -1,13 +1,13 @@
 REM SET BUILD=Debug
 SET BUILD=Release
 
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.Redis.* ..\NuGet\lib\net35
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.Redis.* ..\NuGet\lib\net35
 
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.* ..\..\ServiceStack\release\latest\ServiceStack.Redis
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.* ..\..\NServiceKit\release\latest\NServiceKit.Redis
 
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.* ..\..\ServiceStack\lib
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.* ..\..\ServiceStack.Examples\lib
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.Redis.* ..\..\ServiceStack.Contrib\lib
-COPY ..\src\ServiceStack.Redis\bin\%BUILD%\ServiceStack.Redis.* ..\..\ServiceStack.RedisWebServices\lib
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.* ..\..\NServiceKit\lib
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.* ..\..\NServiceKit.Examples\lib
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.Redis.* ..\..\NServiceKit.Contrib\lib
+COPY ..\src\NServiceKit.Redis\bin\%BUILD%\NServiceKit.Redis.* ..\..\NServiceKit.RedisWebServices\lib
 
 

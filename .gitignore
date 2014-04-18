@@ -34,5 +34,7 @@ obj/
 _ReSharper*/
 [Tt]est[Rr]esult*
 App_Data/
-NuGet/
-build/
+NuGet/*/lib
+NuGet/*/content
+nuget-packages/
+*.nupkg

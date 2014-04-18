@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Threading;
-using ServiceStack.Common;
-using ServiceStack.Common.Support;
-using ServiceStack.Logging;
-using ServiceStack.Logging.Support.Logging;
-using ServiceStack.Redis;
-using ServiceStack.Redis.Messaging;
-using ServiceStack.Text;
+using NServiceKit.Common;
+using NServiceKit.Common.Support;
+using NServiceKit.Logging;
+using NServiceKit.Logging.Support.Logging;
+using NServiceKit.Redis;
+using NServiceKit.Redis.Messaging;
+using NServiceKit.Text;
 
 namespace TestMqHost
 {

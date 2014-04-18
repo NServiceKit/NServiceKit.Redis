@@ -32,17 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Common, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NServiceKit.Common, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\lib\NServiceKit.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NServiceKit.Interfaces, Version=3.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\lib\NServiceKit.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NServiceKit.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\lib\NServiceKit.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,9 +61,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack.Redis\ServiceStack.Redis.csproj">
+    <ProjectReference Include="..\NServiceKit.Redis\NServiceKit.Redis.csproj">
       <Project>{af99f19b-4c04-4f58-81ef-b092f1fcc540}</Project>
-      <Name>ServiceStack.Redis</Name>
+      <Name>NServiceKit.Redis</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

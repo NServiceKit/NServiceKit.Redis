@@ -1,4 +1,52 @@
-@echo off
+@echo on
+if "%APPVEYOR%" == "" (goto START_BUILD)
+
+.\src\.nuget\nuget install
+SETLOCAL EnableExtensions EnableDelayedExpansion
+set _major=0&set _minor=0&set _build=0
+FOR /F "tokens=3-5 delims=." %%i IN ('dir /b nuget-packages\NServiceKit.Text.*') DO (
+	if %%i GTR !_major! (set _major=%%i&set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j GTR !_minor! (set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j==!_minor! if %%k GTR !_build! (set _build=%%k)
+)
+ENDLOCAL & SET NSERVICEKIT_TEXT_VERSIONED_PATH="NServiceKit.Text.%_major%.%_minor%.%_build%"
+
+SET "NSERVICEKIT_TEXT=%~dp0nuget-packages\%NSERVICEKIT_TEXT_VERSIONED_PATH%\"
+COPY "%NSERVICEKIT_TEXT%lib\net35\*.*" .\lib\
+COPY "%NSERVICEKIT_TEXT%lib\sl5\*.*" .\lib\sl5
+
+SETLOCAL EnableExtensions EnableDelayedExpansion
+set _major=0&set _minor=0&set _build=0
+FOR /F "tokens=3-5 delims=." %%i IN ('dir /b nuget-packages\NServiceKit.Common.*') DO (
+	if %%i GTR !_major! (set _major=%%i&set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j GTR !_minor! (set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j==!_minor! if %%k GTR !_build! (set _build=%%k)
+)
+ENDLOCAL & SET NSERVICEKIT_COMMON_VERSIONED_PATH=NServiceKit.Common.%_major%.%_minor%.%_build%
+
+SET "NSERVICEKIT_COMMON=%~dp0nuget-packages\%NSERVICEKIT_COMMON_VERSIONED_PATH%\"
+COPY "%NSERVICEKIT_COMMON%lib\net35\*.*" .\lib\
+COPY "%NSERVICEKIT_COMMON%lib\sl5\*.*" .\lib\sl5   
+
+SETLOCAL EnableExtensions EnableDelayedExpansion
+set _major=0&set _minor=0&set _build=0
+FOR /F "tokens=3-5 delims=." %%i IN ('dir /b nuget-packages\NServiceKit.*') DO (
+	if %%i GTR !_major! (set _major=%%i&set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j GTR !_minor! (set _minor=%%j&set _build=%%k)
+	if %%i==!_major! if %%j==!_minor! if %%k GTR !_build! (set _build=%%k)
+)
+ENDLOCAL & SET NSERVICEKIT_VERSIONED_PATH=NServiceKit.%_major%.%_minor%.%_build%
+
+SET "NSERVICEKIT=%~dp0nuget-packages\%NSERVICEKIT_VERSIONED_PATH%\"
+COPY "%NSERVICEKIT%lib\net35\*.*" .\lib\
+COPY "%NSERVICEKIT%lib\sl5\*.*" .\lib\sl5   
+
+
+:START_BUILD
+
+if "%BUILD_NUMBER%" == "" (
+   set BUILD_NUMBER=%APPVEYOR_BUILD_NUMBER%
+)
 
 set target=%1
 if "%target%" == "" (
