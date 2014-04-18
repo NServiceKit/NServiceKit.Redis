@@ -1,5 +1,5 @@
 @echo on
-if "%APPVEYOR%" == "" (goto START_BUILD)
+if NOT "%APPVEYOR%" == "" (goto START_BUILD)
 
 .\src\.nuget\nuget install
 SETLOCAL EnableExtensions EnableDelayedExpansion
@@ -13,7 +13,7 @@ ENDLOCAL & SET NSERVICEKIT_TEXT_VERSIONED_PATH="NServiceKit.Text.%_major%.%_mino
 
 SET "NSERVICEKIT_TEXT=%~dp0nuget-packages\%NSERVICEKIT_TEXT_VERSIONED_PATH%\"
 COPY "%NSERVICEKIT_TEXT%lib\net35\*.*" .\lib\
-COPY "%NSERVICEKIT_TEXT%lib\sl5\*.*" .\lib\sl5
+COPY "%NSERVICEKIT_TEXT%lib\sl5\*.*" .\lib\sl5\
 
 SETLOCAL EnableExtensions EnableDelayedExpansion
 set _major=0&set _minor=0&set _build=0
@@ -26,7 +26,7 @@ ENDLOCAL & SET NSERVICEKIT_COMMON_VERSIONED_PATH=NServiceKit.Common.%_major%.%_m
 
 SET "NSERVICEKIT_COMMON=%~dp0nuget-packages\%NSERVICEKIT_COMMON_VERSIONED_PATH%\"
 COPY "%NSERVICEKIT_COMMON%lib\net35\*.*" .\lib\
-COPY "%NSERVICEKIT_COMMON%lib\sl5\*.*" .\lib\sl5   
+COPY "%NSERVICEKIT_COMMON%lib\sl5\*.*" .\lib\sl5\
 
 SETLOCAL EnableExtensions EnableDelayedExpansion
 set _major=0&set _minor=0&set _build=0
