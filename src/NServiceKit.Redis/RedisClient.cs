@@ -264,6 +264,11 @@ namespace NServiceKit.Redis
             return Del(keys) == Success;
         }
 
+        public long RemoveByPattern(string keyPattern)
+        {
+            return Del(SearchKeys(keyPattern).ToArray());
+        }
+
         public long IncrementValue(string key)
         {
             return Incr(key);
