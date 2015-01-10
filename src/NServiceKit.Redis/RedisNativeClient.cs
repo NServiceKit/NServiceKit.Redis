@@ -807,6 +807,17 @@ namespace NServiceKit.Redis
             SendExpectSuccess(Commands.Discard);
         }
 
+
+ 	public object[] Scan(long cursor, string pattern = null, long? count = null)
+        {
+            if (pattern == null)
+                pattern = "*";
+
+            if (count == null)
+                count = 10;
+
+            return SendExpectDeeplyNestedMultiData(Commands.Scan, cursor.ToUtf8Bytes(), "MATCH".ToUtf8Bytes(), pattern.ToUtf8Bytes(), "COUNT".ToUtf8Bytes(), count.Value.ToUtf8Bytes());
+        }
         #endregion
 
 
