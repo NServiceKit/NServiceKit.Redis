@@ -181,5 +181,7 @@ namespace NServiceKit.Redis
         public readonly static byte[] Px = "PX".ToUtf8Bytes();
         public readonly static byte[] Nx = "NX".ToUtf8Bytes();
         public readonly static byte[] Xx = "XX".ToUtf8Bytes();
+        
+        public readonly static byte[] Scan = "SCAN".ToUtf8Bytes();
     }
 }
