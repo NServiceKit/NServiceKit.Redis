@@ -112,6 +112,36 @@ namespace NServiceKit.Redis
         {
             return SearchKeys("*");
         }
+        
+        public string[] ScanKeys(ref long cursor, string pattern = null, long? count = null)
+        {
+            var result = base.Scan(cursor, pattern, count);
+
+            if (result.Length <= 0)
+            {
+                cursor = 0;
+                return null;
+            }
+
+            // 返回的游标
+            cursor = long.Parse(Encoding.UTF8.GetString((byte[])result[0]));
+
+            // 返回的Keys
+            if (result.Length > 1)
+            {
+                var items = (object[])result[1];
+
+                string[] keys = new string[items.Length];
+                for (int i = 0; i < items.Length; i++)
+                {
+                    keys[i] = Encoding.UTF8.GetString((byte[])items[i]);
+                }
+
+                return keys;
+            }
+
+            return null;
+        }
 
         public void SetEntry(string key, string value)
         {
