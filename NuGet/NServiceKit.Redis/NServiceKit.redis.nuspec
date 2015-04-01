@@ -18,7 +18,7 @@
     <language>en-US</language>
     <copyright>NServiceKit 2014 and contributors</copyright>
     <dependencies>
-      <dependency id="NServiceKit.Common" version="[1,2)" />
+      <dependency id="NServiceKit.Common" version="[1.0.31,2)" />
       <dependency id="NServiceKit.Text" version="[1,2)" />
     </dependencies>
   </metadata>
