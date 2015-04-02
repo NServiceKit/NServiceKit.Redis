@@ -1,5 +1,4 @@
 @echo on
-if NOT "%APPVEYOR%" == "" (goto START_BUILD)
 
 .\src\.nuget\nuget install
 SETLOCAL EnableExtensions EnableDelayedExpansion
@@ -39,10 +38,7 @@ ENDLOCAL & SET NSERVICEKIT_VERSIONED_PATH=NServiceKit.%_major%.%_minor%.%_build%
 
 SET "NSERVICEKIT=%~dp0nuget-packages\%NSERVICEKIT_VERSIONED_PATH%\"
 COPY "%NSERVICEKIT%lib\net35\*.*" .\lib\
-COPY "%NSERVICEKIT%lib\sl5\*.*" .\lib\sl5   
-
-
-:START_BUILD
+COPY "%NSERVICEKIT%lib\sl5\*.*" .\lib\sl5
 
 if "%BUILD_NUMBER%" == "" (
    set BUILD_NUMBER=%APPVEYOR_BUILD_NUMBER%
