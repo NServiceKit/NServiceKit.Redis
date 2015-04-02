@@ -50,7 +50,7 @@ if "%BUILD_NUMBER%" == "" (
 
 set target=%1
 if "%target%" == "" (
-   set target=UnitTestsWithoutIntegration
+   set target=Default
 )
 
 if "%target%" == "NuGetPack" (

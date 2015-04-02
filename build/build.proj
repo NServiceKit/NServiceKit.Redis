@@ -40,11 +40,11 @@
   </Target>
 
   <Target Name="UnitTestsWithoutIntegration" DependsOnTargets="$(DoBuildSolutionsDependsOn)">
-      <Exec Command="$(BuildSolutionDir)/lib/tests/nunit-console-x86.exe /exclude:Integration $(BuildSolutionDir)/tests/NServiceKit.Redis.Tests/bin/Debug/NServiceKit.Redis.Tests.dll"/>
+      <Exec Command="$(BuildSolutionDir)/nuget-packages/NUnit.Runners.2.6.3/tools/nunit-console-x86.exe /exclude:Integration $(BuildSolutionDir)/tests/NServiceKit.Redis.Tests/bin/$(Configuration)/NServiceKit.Redis.Tests.dll"/>
   </Target>
 
   <Target Name="UnitTests" DependsOnTargets="$(DoBuildSolutionsDependsOn)">
-      <Exec Command="$(BuildSolutionDir)/lib/tests/nunit-console-x86.exe $(BuildSolutionDir)/tests/NServiceKit.Redis.Tests/bin/Debug/NServiceKit.Redis.Tests.dll"/>
+      <Exec Command="$(BuildSolutionDir)/nuget-packages/NUnit.Runners.2.6.3/tools/nunit-console-x86.exe $(BuildSolutionDir)/tests/NServiceKit.Redis.Tests/bin/$(Configuration)/NServiceKit.Redis.Tests.dll"/>
   </Target>
 
   <Target Name="BeforeBuildSolutions">
@@ -68,7 +68,7 @@
     <MSBuild Projects="$(BuildSolutionDir)/src/NServiceKit.Redis/NServiceKit.Redis.csproj"
              Targets="Build"
              Properties="Version=$(PackageVersion);Configuration=$(Configuration)" />
- 
+
     <MakeDir Directories="$(NuGetPackageDir)/NServiceKit.Redis/lib/net35" Condition="!Exists('$(NuGetPackageDir)/NServiceKit.Redis/lib/net35')" />
     <Copy SourceFiles="%(RedisFiles.Identity)" DestinationFolder="$(NuGetPackageDir)/NServiceKit.Redis/lib/net35" />
 
