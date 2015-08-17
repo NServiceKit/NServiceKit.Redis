@@ -95,9 +95,9 @@ namespace NServiceKit.Redis
 			{
 				pipeline.WriteCommand(Commands.ZAdd, uSetId, uScore, value.ToUtf8Bytes());
 			}
-            
+
 			pipeline.Flush();
-            
+
 			var success = pipeline.ReadAllAsIntsHaveSuccess();
 			return success;
 		}
