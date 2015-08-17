@@ -102,12 +102,12 @@ namespace NServiceKit.Redis
 			return success;
 		}
 
-        public long AddRangeToSortedSetWithScores(string setId, List<KeyValuePair<string, double>> valuesWithScore)
-        {
-            var uSetId = setId.ToUtf8Bytes();
-            var byteValuesWithScore = valuesWithScore.Select(x => new KeyValuePair<byte[], double>(x.Key.ToUtf8Bytes(), x.Value)).ToList();
-            return ZAdd(setId, byteValuesWithScore);
-        }
+		public long AddRangeToSortedSetWithScores(string setId, List<KeyValuePair<string, double>> valuesWithScore)
+		{
+			var uSetId = setId.ToUtf8Bytes();
+			var byteValuesWithScore = valuesWithScore.Select(x => new KeyValuePair<byte[], double>(x.Key.ToUtf8Bytes(), x.Value)).ToList();
+			return ZAdd(setId, byteValuesWithScore);
+		}
 
 		public bool AddRangeToSortedSet(string setId, List<string> values, long score)
 		{
