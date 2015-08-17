@@ -17,6 +17,7 @@ using System.Linq;
 using NServiceKit.DesignPatterns.Model;
 using NServiceKit.Redis.Support;
 using NServiceKit.Text;
+using System.IO;
 
 namespace NServiceKit.Redis
 {
@@ -95,12 +96,33 @@ namespace NServiceKit.Redis
 			{
 				pipeline.WriteCommand(Commands.ZAdd, uSetId, uScore, value.ToUtf8Bytes());
 			}
+            
 
 			pipeline.Flush();
-
+            
 			var success = pipeline.ReadAllAsIntsHaveSuccess();
 			return success;
 		}
+
+        public long AddRangeToSortedSetWithScores(string setId, List<KeyValuePair<string, double>> valuesWithScore)
+        {
+            var uSetId = setId.ToUtf8Bytes();
+            byte[] scoresAndValuesBytes;
+            using(var memStream = new MemoryStream())
+            {
+                foreach(var kvp in valuesWithScore)
+                {
+                    memStream.Write(new [] { (byte)' ' }, 0, 1);
+                    var scoreBytes = kvp.Value.ToFastUtf8Bytes();
+                    memStream.Write(scoreBytes, 0, scoreBytes.Length);
+                    memStream.Write(new[] { (byte)' ' }, 0, 1);
+                    var valueBytes = kvp.Key.ToUtf8Bytes();
+                    memStream.Write(valueBytes, 0, valueBytes.Length);
+                }
+                scoresAndValuesBytes = memStream.ToArray();
+            }
+            return SendExpectLong(Commands.ZAdd, uSetId, scoresAndValuesBytes);
+        }
 
 		public bool AddRangeToSortedSet(string setId, List<string> values, long score)
 		{
