@@ -58,33 +58,33 @@ namespace NServiceKit.Redis.Tests
 			Assert.That(members, Is.EquivalentTo(storeMembers));
 		}
 
-        [Test]
-        public void Can_AddRangeToSortedSetWithScores_and_GetAllFromSet()
-        {
-            var count = Redis.AddRangeToSortedSetWithScores(SetId, storeMembers.Select(x => new KeyValuePair<string, double>(x, 1)).ToList());
-            Assert.AreEqual(storeMembers.Count, count);
+		[Test]
+		public void Can_AddRangeToSortedSetWithScores_and_GetAllFromSet()
+		{
+			var count = Redis.AddRangeToSortedSetWithScores(SetId, storeMembers.Select(x => new KeyValuePair<string, double>(x, 1)).ToList());
+			Assert.AreEqual(storeMembers.Count, count);
 
-            var members = Redis.GetAllItemsFromSortedSet(SetId);
-            Assert.That(members, Is.EquivalentTo(storeMembers));
-        }
+			var members = Redis.GetAllItemsFromSortedSet(SetId);
+			Assert.That(members, Is.EquivalentTo(storeMembers));
+		}
 
-        [Test]
-        public void Can_AddRangeToSortedSetWithScores_and_GetAllWithScoresFromSortedSet()
-        {
-            uint i = 0;
-            var count = Redis.AddRangeToSortedSetWithScores(SetId, storeMembers.Select(x => new KeyValuePair<string, double>(x, i++)).ToList());
-            Assert.AreEqual(storeMembers.Count, count);
+		[Test]
+		public void Can_AddRangeToSortedSetWithScores_and_GetAllWithScoresFromSortedSet()
+		{
+			uint i = 0;
+			var count = Redis.AddRangeToSortedSetWithScores(SetId, storeMembers.Select(x => new KeyValuePair<string, double>(x, i++)).ToList());
+			Assert.AreEqual(storeMembers.Count, count);
 
-            var members = Redis.GetAllWithScoresFromSortedSet(SetId);
-            i = 0;
-            foreach(var member in storeMembers)
-            {
-                Assert.IsTrue(members.ContainsKey(member));
-                Assert.AreEqual(i++, members[member]);
-            }
-        }
+			var members = Redis.GetAllWithScoresFromSortedSet(SetId);
+			i = 0;
+			foreach(var member in storeMembers)
+			{
+				Assert.IsTrue(members.ContainsKey(member));
+				Assert.AreEqual(i++, members[member]);
+			}
+		}
 
-        [Test]
+		[Test]
 		public void AddToSet_without_score_adds_an_implicit_lexical_order_score()
 		{
 			storeMembers.ForEach(x => Redis.AddItemToSortedSet(SetId, x));
