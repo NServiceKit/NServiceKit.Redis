@@ -226,6 +226,28 @@ namespace NServiceKit.Redis.Tests
         }
 
         [Test]
+        public void Can_Store_UnionBetweenSetsWithWeights()
+        {
+            string set1Name = PrefixedKey("testintersectset1");
+            string set2Name = PrefixedKey("testintersectset2");
+            string storeSetName = PrefixedKey("testintersectsetstore");
+            Redis.AddItemToSortedSet(set1Name, "one", 10.0);
+            Redis.AddItemToSortedSet(set1Name, "three", 3.0);
+            Redis.AddItemToSortedSet(set1Name, "four", 2.0);
+            Redis.AddItemToSortedSet(set2Name, "four", 2.0);
+            Redis.AddItemToSortedSet(set2Name, "three", 1.0);
+            Redis.StoreIntersectFromSortedSetsWithWeights(storeSetName,
+                new KeyValuePair<string, double>(set1Name, 1.0),
+                new KeyValuePair<string, double>(set2Name, 3.0)
+            );
+            var intersectingMembers = Redis.GetAllWithScoresFromSortedSet(storeSetName);
+            Assert.AreEqual(3, intersectingMembers.Count);
+            Assert.AreEqual(6.0, intersectingMembers["three"]);
+            Assert.AreEqual(8.0, intersectingMembers["four"]);
+            Assert.AreEqual(10.0, intersectingMembers["one"]);
+        }
+
+        [Test]
 		public void Can_Store_UnionBetweenSets()
 		{
 			string set1Name = PrefixedKey("testunionset1");

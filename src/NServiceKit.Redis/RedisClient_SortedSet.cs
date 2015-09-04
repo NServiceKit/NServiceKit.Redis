@@ -429,5 +429,10 @@ namespace NServiceKit.Redis
 		{
 			return base.ZUnionStore(intoSetId, setIds);
 		}
-	}
+
+        public long StoreUnionFromSortedSetsWithWeights(string intoSetId, params KeyValuePair<string, double>[] setIdWithWeightPairs)
+        {
+            return base.ZUnionStoreWithWeights(intoSetId, setIdWithWeightPairs);
+        }
+    }
 }
