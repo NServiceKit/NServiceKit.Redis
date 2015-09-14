@@ -420,9 +420,19 @@ namespace NServiceKit.Redis
 			return base.ZInterStore(intoSetId, setIds);
 		}
 
-		public long StoreUnionFromSortedSets(string intoSetId, params string[] setIds)
+        public long StoreIntersectFromSortedSetsWithWeights(string intoSetId, params KeyValuePair<string, double>[] setIdWithWeightPairs)
+        {
+            return base.ZInterStoreWithWeights(intoSetId, setIdWithWeightPairs);
+        }
+
+        public long StoreUnionFromSortedSets(string intoSetId, params string[] setIds)
 		{
 			return base.ZUnionStore(intoSetId, setIds);
 		}
-	}
+
+        public long StoreUnionFromSortedSetsWithWeights(string intoSetId, params KeyValuePair<string, double>[] setIdWithWeightPairs)
+        {
+            return base.ZUnionStoreWithWeights(intoSetId, setIdWithWeightPairs);
+        }
+    }
 }
