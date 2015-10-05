@@ -236,7 +236,7 @@ namespace NServiceKit.Redis.Tests
             Redis.AddItemToSortedSet(set1Name, "four", 2.0);
             Redis.AddItemToSortedSet(set2Name, "four", 2.0);
             Redis.AddItemToSortedSet(set2Name, "three", 1.0);
-            Redis.StoreIntersectFromSortedSetsWithWeights(storeSetName,
+            Redis.StoreUnionFromSortedSetsWithWeights(storeSetName,
                 new KeyValuePair<string, double>(set1Name, 1.0),
                 new KeyValuePair<string, double>(set2Name, 3.0)
             );
