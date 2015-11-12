@@ -1546,6 +1546,34 @@ namespace NServiceKit.Redis
             return SendExpectLong(cmdWithArgs);
         }
 
+        public long ZUnionStoreWithWeights(string intoSetId, params KeyValuePair<string, double>[] setIdWithWeightPairs)
+        {
+            var setIds = setIdWithWeightPairs.Select(x => x.Key).ToArray();
+            var weights = setIdWithWeightPairs.Select(x => x.Value).ToArray();
+            var cmdWithArgs = new List<byte[]>
+               {
+                   Commands.ZUnionStore, intoSetId.ToUtf8Bytes(), setIds.Length.ToUtf8Bytes()
+               };
+
+            // add the set ids
+            foreach (var setId in setIds)
+            {
+                cmdWithArgs.Add(setId.ToUtf8Bytes());
+            }
+
+            // add "WEIGHTS"
+            cmdWithArgs.Add(Commands.Weights);
+
+            // append the weights
+            foreach (var weight in weights)
+            {
+                cmdWithArgs.Add(weight.ToFastUtf8Bytes());
+            }
+
+            // send command
+            return SendExpectLong(cmdWithArgs.ToArray());
+        }
+
         public long ZInterStore(string intoSetId, params string[] setIds)
         {
             var setIdsList = new List<string>(setIds);
@@ -1554,6 +1582,34 @@ namespace NServiceKit.Redis
 
             var cmdWithArgs = MergeCommandWithArgs(Commands.ZInterStore, setIdsList.ToArray());
             return SendExpectLong(cmdWithArgs);
+        }
+
+        public long ZInterStoreWithWeights(string intoSetId, params KeyValuePair<string, double>[] setIdWithWeightPairs)
+        {
+            var setIds = setIdWithWeightPairs.Select(x => x.Key).ToArray();
+            var weights = setIdWithWeightPairs.Select(x => x.Value).ToArray();
+            var cmdWithArgs = new List<byte[]>
+               {
+                   Commands.ZInterStore, intoSetId.ToUtf8Bytes(), setIds.Length.ToUtf8Bytes()
+               };
+            
+            // add the set ids
+            foreach(var setId in setIds)
+            {
+                cmdWithArgs.Add(setId.ToUtf8Bytes());
+            }
+
+            // add "WEIGHTS"
+            cmdWithArgs.Add(Commands.Weights);
+
+            // append the weights
+            foreach (var weight in weights)
+            {
+                cmdWithArgs.Add(weight.ToFastUtf8Bytes());
+            }
+
+            // send command
+            return SendExpectLong(cmdWithArgs.ToArray());
         }
 
         #endregion
